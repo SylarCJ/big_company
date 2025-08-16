@@ -13,6 +13,12 @@ It checks two main rules:
 
 ---
 
+## 📚 Dependencies
+- Java 17 or higher
+- Maven
+- JUnit5 for unit testing
+---
+
 ## 🚀 Build & Run
 
 ### Build with Maven
@@ -22,7 +28,7 @@ mvn clean package
 
 ### Run the Application
 ```bash
-java -jar target/big-company-analysis-1.0-SNAPSHOT.jar target/classes/employees.csv
+java -jar target/big_company-1.0-SNAPSHOT.jar target/classes/employee.csv
 ```
 ---
 
@@ -103,9 +109,4 @@ Employee{id='129', firstName='Brett', lastName='Hasacat', salary=34000.0, manage
 ```
 ---
 
-## 📚 Dependencies
-- Java 17 or higher
-- Maven
-- JUnit for unit testing
----
 
