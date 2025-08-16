@@ -1,17 +1,42 @@
 package org.structure;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import org.structure.entity.Employee;
+import org.structure.handler.CompanyStructureAnalyzer;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+import java.io.IOException;
+import java.util.Map;
+
+/**
+ * The type Main.
+ */
+public class Main {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
+    public static void main(String[] args) {
+        // Check if the arguments are a missing file path
+        String filePath = args[0];
+
+        if (filePath.trim().isEmpty()) {
+            System.out.println("The provided file path is empty. Please provide a valid file path.");
+            return;
+        }
+
+        // Create an instance of the CompanyStructureAnalyzer class
+        CompanyStructureAnalyzer companyStructureAnalyzer = new CompanyStructureAnalyzer();
+
+        // load the employees from the CSV file
+        try {
+            Map<String, Employee> employees = companyStructureAnalyzer.loadEmployeesAndBuildHierarchy(filePath);
+            // Call the analyze method with the provided file path
+            companyStructureAnalyzer.analyze(employees);
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            System.err.println("Error : Invalid Data: " + e.getMessage());
         }
     }
 }
