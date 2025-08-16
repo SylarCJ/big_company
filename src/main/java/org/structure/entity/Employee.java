@@ -13,6 +13,9 @@ import java.util.List;
 @Setter
 public class Employee {
 
+    /**
+     * The Salary.
+     */
     double salary;
     private String id;
     private String firstName;
@@ -37,6 +40,11 @@ public class Employee {
         this.managerId = managerId;
     }
 
+    /**
+     * The to string method provides a string representation of the Employee object.
+     *
+     * @return a string representation of the Employee object
+     */
     @Override
     public String toString() {
         return "Employee{" +

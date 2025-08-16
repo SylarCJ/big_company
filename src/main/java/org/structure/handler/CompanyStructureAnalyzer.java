@@ -16,7 +16,7 @@ public class CompanyStructureAnalyzer {
      * Load employees and build hierarchy map.
      *
      * @param filePath the file path
-     * @return the map
+     * @return the employee map
      */
     public Map<String, Employee> loadEmployeesAndBuildHierarchy(String filePath) throws IOException {
         Map<String, Employee> employeeMap = new HashMap<>();
@@ -67,7 +67,7 @@ public class CompanyStructureAnalyzer {
     }
 
     /**
-     * Analyze.
+     * Analyze the company structure based on the provided employees map.
      *
      * @param employees the employees
      */
@@ -106,16 +106,16 @@ public class CompanyStructureAnalyzer {
 
         checkDepth(ceo, 0, empLongReportingLines);
 
-        // Print results for managers with salary less than 120% of average of direct reportees
+        // Print results for managers with salary less than 20% of average of direct reportees
         System.out.println(mgrSalaryLess.isEmpty()
-                ? "No managers with salary less than 120% of average of direct reportees."
-                : "Managers with salary less than 120% of average of direct reportees:");
+                ? "No managers with salary less than 20% of average of direct reportees."
+                : "Managers with salary less than 20% of average of direct reportees:");
         mgrSalaryLess.forEach(System.out::println);
 
-        // Print results for managers with salary more than 150% of average of direct reportees
+        // Print results for managers with salary more than 50% of average of direct reportees
         System.out.println(mgrSalaryMore.isEmpty()
-                ? "No managers with salary more than 150% of average of direct reportees."
-                : "Managers with salary more than 150% of average of direct reportees:");
+                ? "No managers with salary more than 50% of average of direct reportees."
+                : "Managers with salary more than 50% of average of direct reportees:");
         mgrSalaryMore.forEach(System.out::println);
 
         // Print results for employees with reporting lines exceeding 4 levels
@@ -125,6 +125,13 @@ public class CompanyStructureAnalyzer {
         empLongReportingLines.forEach(System.out::println);
     }
 
+    /**
+     * Recursively checks the depth of reporting lines for each employee.
+     *
+     * @param employee            the employee to check
+     * @param depth               the current depth in the hierarchy
+     * @param empLongReportingLines the list to collect employees with long reporting lines
+     */
     private void checkDepth(Employee employee, int depth, List<String> empLongReportingLines) {
         for (Employee directReportee : employee.getDirectReportees()) {
 

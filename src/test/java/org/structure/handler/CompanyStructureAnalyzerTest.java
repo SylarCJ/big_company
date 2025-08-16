@@ -30,7 +30,7 @@ class CompanyStructureAnalyzerTest {
     }
 
     /**
-     * Throws exception when multiple ce os found.
+     * Throws exception when multiple ceos found.
      */
     @Test
     void throwsExceptionWhenMultipleCEOsFound() {
@@ -46,10 +46,10 @@ class CompanyStructureAnalyzerTest {
     }
 
     /**
-     * Identifies employees with salary greater than 100000.
+     * Identifies employees with salary greater than 20 percent of average of direct reportees.
      */
     @Test
-    void identifiesManagersWithSalaryLessThan120PercentOfDirectReporteesAverage() {
+    void identifiesManagersWithSalaryLessThan20PercentOfDirectReporteesAverage() {
         Employee manager = new Employee("1", "John", "Doe", 45000, null);
         Employee reportee1 = new Employee("2", "Jane", "Smith", 40000, "1");
         Employee reportee2 = new Employee("3", "Bob", "Brown", 40000, "1");
@@ -65,18 +65,18 @@ class CompanyStructureAnalyzerTest {
         String result = captureOutput(() -> analyzer.analyze(employees));
 
         assertLinesMatch(
-                List.of("Managers with salary less than 120% of average of direct reportees:",
+                List.of("Managers with salary less than 20% of average of direct reportees:",
                         "Employee{id='1', firstName='John', lastName='Doe', salary=45000.0, managerId='null'}: lesser 3000.00",
-                        "No managers with salary more than 150% of average of direct reportees.",
+                        "No managers with salary more than 50% of average of direct reportees.",
                         "No employees with reporting lines exceeding 4 levels."),
                 result.lines().toList());
     }
 
     /**
-     * Identifies managers with salary more than 150 percent of average of direct reportees.
+     * Identifies managers with salary more than 50 percent of average of direct reportees.
      */
     @Test
-    void identifiesManagersWithSalaryMoreThan150PercentOfDirectReporteesAverage() {
+    void identifiesManagersWithSalaryMoreThan50PercentOfDirectReporteesAverage() {
         Employee manager = new Employee("1", "John", "Doe", 90000, null);
         Employee reportee1 = new Employee("2", "Jane", "Smith", 40000, "1");
         Employee reportee2 = new Employee("3", "Bob", "Brown", 40000, "1");
@@ -92,8 +92,8 @@ class CompanyStructureAnalyzerTest {
         String result = captureOutput(() -> analyzer.analyze(employees));
 
         assertLinesMatch(
-                List.of("No managers with salary less than 120% of average of direct reportees.",
-                        "Managers with salary more than 150% of average of direct reportees:",
+                List.of("No managers with salary less than 20% of average of direct reportees.",
+                        "Managers with salary more than 50% of average of direct reportees:",
                         "Employee{id='1', firstName='John', lastName='Doe', salary=90000.0, managerId='null'}: more 30000.00",
                         "No employees with reporting lines exceeding 4 levels."),
                 result.lines().toList());
@@ -130,8 +130,8 @@ class CompanyStructureAnalyzerTest {
         String result = captureOutput(() -> analyzer.analyze(employees));
 
         assertLinesMatch(
-                List.of("No managers with salary less than 120% of average of direct reportees.",
-                        "No managers with salary more than 150% of average of direct reportees.",
+                List.of("No managers with salary less than 20% of average of direct reportees.",
+                        "No managers with salary more than 50% of average of direct reportees.",
                         "Employees with reporting lines exceeding 4 levels:",
                         "Employee{id='6', firstName='Eve', lastName='Green', salary=10000.0, managerId='5'}: exceeds by 1"),
                 result.lines().toList());
